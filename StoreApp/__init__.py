@@ -9,5 +9,6 @@ storeApp.config.from_object(Config)
 db = SQLAlchemy(storeApp)
 migrate = Migrate(storeApp, db)
 login = LoginManager(storeApp)
+login.login_view = 'login'
 
 from StoreApp import routes, models

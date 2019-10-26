@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/login.css"/>
+{% endblock %}
+
+{% block body %}
+  <h3>Current Products</h3>
+  {% if products is defined %}
+    <ul>
+      {% for product in products %}
+        <li>
+          {{ product.name }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <hr/>
+  <h3>Add New Product</h3>
+  <form action="" method="POST" class="login-form" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.category.label }}<br/>
+        {{ form.category }}
+        {% for error in form.category.errors %}
+          <span class="alert alert-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.name.label }}<br/>
+        {{ form.name(size=64)}}
+        {% for error in form.name.errors %}
+          <span class="alert alert-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.price.label }}<br/>
+        {{ form.price }}
+        {% for error in form.price.errors %}
+          <span class="alert alert-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.description.label }}
+        {{ form.description(size=128)}}
+        {% for error in form.description.errors %}
+          <span class="alert alert-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.image.label }}<br/>
+        {{ form.image }}
+        {% for error in form.image.errors %}
+          <span class="alert alert-danger">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}
