@@ -113,5 +113,5 @@ start.sh
 notes.txt
 
 # SQLAlchemy database and migrations
-PaceApp.db
+app.db
 migrations/
