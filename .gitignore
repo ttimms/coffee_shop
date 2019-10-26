@@ -102,3 +102,16 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# vs code 
+.vscode/
+
+# start file and environment variables
+start.sh
+
+# my quick notes
+notes.txt
+
+# SQLAlchemy database and migrations
+PaceApp.db
+migrations/
