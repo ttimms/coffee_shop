@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="static/css/login.css"/>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 {% endblock %}
 
 {% block body %}
@@ -19,6 +20,9 @@
   <p class="col-12">
     {% if prev_url %}
       <a href="{{ prev_url }}">Previous Page</a>
+    {% endif %}
+    {% if prev_url and next_url %}
+      -
     {% endif %}
     {% if next_url %}
       <a href="{{ next_url }}">Next Page</a>
