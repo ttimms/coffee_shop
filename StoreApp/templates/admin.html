@@ -15,6 +15,15 @@
       {% endfor %}
     </ul>
   {% endif %}
+  <br/>
+  <p class="col-12">
+    {% if prev_url %}
+      <a href="{{ prev_url }}">Previous Page</a>
+    {% endif %}
+    {% if next_url %}
+      <a href="{{ next_url }}">Next Page</a>
+    {% endif %}
+  </p>
   <hr/>
   <h3>Add New Product</h3>
   <form action="" method="POST" class="login-form" enctype="multipart/form-data">

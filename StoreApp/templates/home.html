@@ -11,9 +11,9 @@
 
       <h1 class="my-4">Coffee Shop</h1>
       <div class="list-group">
-        <a href="#" class="list-group-item">Coffee</a>
-        <a href="#" class="list-group-item">Food</a>
-        <a href="#" class="list-group-item">Treats</a>
+        <a href="{{ url_for('index') }}" class="list-group-item">Beverages</a>
+        <a href="{{ url_for('food') }}" class="list-group-item">Food</a>
+        <a href="{{ url_for('treat') }}" class="list-group-item">Treats</a>
       </div>
 
     </div>
@@ -68,6 +68,15 @@
         {% endfor %}
 
       </div>
+      <br/>
+      <p>
+        {% if prev_url %}
+          <a href="{{ prev_url }}">Previous Page</a>
+        {% endif %}
+        {% if next_url %}
+          <a href="{{ next_url }}">Next Page</a>
+        {% endif %}
+      </p>
     </div>
   </div>
 

@@ -8,8 +8,27 @@ from werkzeug.utils import secure_filename
 @storeApp.route('/')
 @storeApp.route('/index')
 def index():
-  products = Product.query.all()
-  return render_template('home.html', title='Home', products=products)
+  page = request.args.get('page', 1, type=int)
+  products = Product.query.filter_by(category='coffee').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
+  next_url = url_for('index', page=products.next_num) if products.has_next else None
+  prev_url = url_for('index', page=products.prev_num) if products.has_prev else None
+  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url)
+
+@storeApp.route('/food')
+def food():
+  page = request.args.get('page', 1, type=int)
+  products = Product.query.filter_by(category='food').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
+  next_url = url_for('food', page=products.next_num) if products.has_next else None
+  prev_url = url_for('food', page=products.prev_num) if products.has_prev else None
+  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url)
+
+@storeApp.route('/treats')
+def treat():
+  page = request.args.get('page', 1, type=int)
+  products = Product.query.filter_by(category='treat').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
+  next_url = url_for('treats', page=products.next_num) if products.has_next else None
+  prev_url = url_for('treats', page=products.prev_num) if products.has_prev else None
+  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url)
 
 @storeApp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,7 +53,10 @@ def logout():
 @storeApp.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-  products = Product.query.all()
+  page = request.args.get('page', 1, type=int)
+  products = Product.query.paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
+  next_url = url_for('admin', page=products.next_num) if products.has_next else None
+  prev_url = url_for('admin', page=products.prev_num) if products.has_prev else None
   form = NewProductForm()
   if form.validate_on_submit():
     file = form.image.data
@@ -50,4 +72,4 @@ def admin():
     db.session.add(newProduct)
     db.session.commit()
     return redirect(url_for('admin'))
-  return render_template('admin.html', products=products, form=form)
+  return render_template('admin.html', products=products.items, form=form, next_url=next_url, prev_url=prev_url)
