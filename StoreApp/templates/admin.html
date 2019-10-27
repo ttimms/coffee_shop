@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="static/css/login.css"/>
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="static/css/admin.css"/>
 {% endblock %}
 
 {% block body %}
   <h3>Current Products</h3>
   {% if products is defined %}
-    <ul>
+    <ul class=list-group>
       {% for product in products %}
-        <li>
-          {{ product.name }}
-        </li>
+        <span>
+          <li class="list-group-item">
+            {{ product.name }}
+            <div class="delete">
+              <a href="{{ url_for('delete_product') }}?pid={{ product.id }}">
+                <img src="../static/img/delete-sign.png">
+              </a>
+            </div>
+          </li>
+        </span>
       {% endfor %}
     </ul>
   {% endif %}

@@ -4,6 +4,7 @@ from StoreApp.forms import LoginForm, NewProductForm
 from StoreApp.models import User, Product
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
+import os
 
 @storeApp.route('/')
 @storeApp.route('/index')
@@ -54,7 +55,7 @@ def logout():
 @login_required
 def admin():
   page = request.args.get('page', 1, type=int)
-  products = Product.query.paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
+  products = Product.query.paginate(page, storeApp.config['ADMIN_PRODUCTS_PER_PAGE'], False)
   next_url = url_for('admin', page=products.next_num) if products.has_next else None
   prev_url = url_for('admin', page=products.prev_num) if products.has_prev else None
   form = NewProductForm()
@@ -73,3 +74,16 @@ def admin():
     db.session.commit()
     return redirect(url_for('admin'))
   return render_template('admin.html', products=products.items, form=form, next_url=next_url, prev_url=prev_url)
+
+@storeApp.route('/delete_product', methods=['GET', 'POST'])
+@login_required
+def delete_product():
+  if current_user.role == 'Admin':
+    product_id = request.args.get('pid')
+    if product_id:
+      product = Product.query.filter_by(id = product_id).first()
+      os.remove(storeApp.config['UPLOAD_FOLDER'] + product.image_path)
+      db.session.delete(product)
+      db.session.commit()
+      return redirect(url_for('admin'))
+  return redirect(url_for('login'))
