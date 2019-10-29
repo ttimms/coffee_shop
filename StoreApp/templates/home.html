@@ -61,7 +61,16 @@
                 <p class="card-text">{{ product.description }}</p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                <form action="{{ url_for('process_payment', id=product.id)}}" method="post">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js"
+                    class="stripe-button"
+                    data-key="{{ stripe_public_key }}"
+                    data-description="Payment for {{ product.name }}"
+                    data-amount="{{ product.price * 100 }}"
+                    data-locale="auto">
+                  </script>
+                </form>
               </div>
             </div>
           </div>

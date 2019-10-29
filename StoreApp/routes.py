@@ -5,6 +5,7 @@ from StoreApp.models import User, Product
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 import os
+import stripe
 
 @storeApp.route('/')
 @storeApp.route('/index')
@@ -13,7 +14,8 @@ def index():
   products = Product.query.filter_by(category='coffee').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
   next_url = url_for('index', page=products.next_num) if products.has_next else None
   prev_url = url_for('index', page=products.prev_num) if products.has_prev else None
-  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url)
+  key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
+  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url, stripe_public_key=key)
 
 @storeApp.route('/food')
 def food():
@@ -21,7 +23,8 @@ def food():
   products = Product.query.filter_by(category='food').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
   next_url = url_for('food', page=products.next_num) if products.has_next else None
   prev_url = url_for('food', page=products.prev_num) if products.has_prev else None
-  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url)
+  key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
+  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url, stripe_public_key=key)
 
 @storeApp.route('/treats')
 def treat():
@@ -29,7 +32,8 @@ def treat():
   products = Product.query.filter_by(category='treat').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
   next_url = url_for('treats', page=products.next_num) if products.has_next else None
   prev_url = url_for('treats', page=products.prev_num) if products.has_prev else None
-  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url)
+  key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
+  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url, stripe_public_key=key)
 
 @storeApp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -39,7 +43,7 @@ def login():
   if form.validate_on_submit():
     user = User.query.filter_by(username=form.username.data).first()
     if user is None or not user.check_password(form.password.data):
-      flash('Invalid username or password')
+      flash('Invalid username or password', 'danger')
       return redirect(url_for('login'))
     login_user(user, remember=form.remember_me.data)
     return redirect(url_for('admin'))
@@ -72,6 +76,7 @@ def admin():
     )
     db.session.add(newProduct)
     db.session.commit()
+    flash('Item: ' + newProduct.name + ' successfully added to store.', 'success')
     return redirect(url_for('admin'))
   return render_template('admin.html', products=products.items, form=form, next_url=next_url, prev_url=prev_url)
 
@@ -82,8 +87,26 @@ def delete_product():
     product_id = request.args.get('pid')
     if product_id:
       product = Product.query.filter_by(id = product_id).first()
+      product_name = product.name
       os.remove(storeApp.config['UPLOAD_FOLDER'] + product.image_path)
       db.session.delete(product)
       db.session.commit()
+      flash('Item: ' + product_name + ' successfully removed from store.', 'success')
       return redirect(url_for('admin'))
   return redirect(url_for('login'))
+
+@storeApp.route('/process_payment/<id>', methods=['GET', 'POST'])
+def process_payment(id):
+  product = Product.query.filter_by(id=id).first()
+  customer = stripe.Customer.create(
+    email = request.form['stripeEmail'],
+    source = request.form['stripeToken']
+  )
+  stripe.Charge.create(
+    customer = customer.id,
+    amount = int(product.price * 100),
+    currency = 'usd',
+    description = 'Purchase for ' + product.name
+  )
+  flash('Purchase made successfully! Thank you very much! A receipt will be sent to the provided email.', 'success')
+  return redirect(url_for('index'))

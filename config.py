@@ -8,5 +8,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER')
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+    STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+    STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
     PRODUCTS_PER_PAGE = 6
     ADMIN_PRODUCTS_PER_PAGE = 4
