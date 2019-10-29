@@ -7,3 +7,4 @@ pip3 install flask-migrate
 pip3 install flask-login
 pip3 install flask-wtf
 pip3 install stripe
+pip3 install flask-mail

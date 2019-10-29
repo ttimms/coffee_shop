@@ -4,6 +4,7 @@ from StoreApp.forms import LoginForm, NewProductForm
 from StoreApp.models import User, Product
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
+from StoreApp.email import send_receipt
 import os
 import stripe
 
@@ -108,5 +109,6 @@ def process_payment(id):
     currency = 'usd',
     description = 'Purchase for ' + product.name
   )
+  send_receipt(customer.email, product)
   flash('Purchase made successfully! Thank you very much! A receipt will be sent to the provided email.', 'success')
   return redirect(url_for('index'))
