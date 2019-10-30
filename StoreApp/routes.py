@@ -10,29 +10,12 @@ import stripe
 
 @storeApp.route('/')
 @storeApp.route('/index')
-def index():
+@storeApp.route('/index/<cat>')
+def index(cat='coffee'):
   page = request.args.get('page', 1, type=int)
-  products = Product.query.filter_by(category='coffee').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
+  products = Product.query.filter_by(category=cat).paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
   next_url = url_for('index', page=products.next_num) if products.has_next else None
   prev_url = url_for('index', page=products.prev_num) if products.has_prev else None
-  key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
-  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url, stripe_public_key=key)
-
-@storeApp.route('/food')
-def food():
-  page = request.args.get('page', 1, type=int)
-  products = Product.query.filter_by(category='food').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
-  next_url = url_for('food', page=products.next_num) if products.has_next else None
-  prev_url = url_for('food', page=products.prev_num) if products.has_prev else None
-  key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
-  return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url, stripe_public_key=key)
-
-@storeApp.route('/treats')
-def treat():
-  page = request.args.get('page', 1, type=int)
-  products = Product.query.filter_by(category='treat').paginate(page, storeApp.config['PRODUCTS_PER_PAGE'], False)
-  next_url = url_for('treats', page=products.next_num) if products.has_next else None
-  prev_url = url_for('treats', page=products.prev_num) if products.has_prev else None
   key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
   return render_template('home.html', title='Home', products=products.items, next_url=next_url, prev_url=prev_url, stripe_public_key=key)
 
