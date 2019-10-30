@@ -15,4 +15,4 @@ login.login_view = 'login'
 mail = Mail(storeApp)
 stripe.api_key = storeApp.config['STRIPE_SECRET_KEY']
 
-from StoreApp import routes, models
+from StoreApp import routes, models, errors
