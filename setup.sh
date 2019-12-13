@@ -1,10 +1,10 @@
 
 # Recommend opening virtual environment before executing
 
-pip3 install flask
-pip3 install flask-sqlalchemy
-pip3 install flask-migrate
-pip3 install flask-login
-pip3 install flask-wtf
-pip3 install stripe
-pip3 install flask-mail
+pip3 install --user flask
+pip3 install --user flask-sqlalchemy
+pip3 install --user flask-migrate
+pip3 install --user flask-login
+pip3 install --user flask-wtf
+pip3 install --user stripe
+pip3 install --user flask-mail
