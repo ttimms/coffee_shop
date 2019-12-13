@@ -8,3 +8,4 @@ pip3 install --user flask-login
 pip3 install --user flask-wtf
 pip3 install --user stripe
 pip3 install --user flask-mail
+
