@@ -17,12 +17,12 @@ def index(cat='coffee'):
   next_url = url_for('index', page=products.next_num) if products.has_next else None
   prev_url = url_for('index', page=products.prev_num) if products.has_prev else None
   key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
-  flash(' DISCLAIMER: Anything purchased on this website is purchased for Tyler Timms. You will receive nothing for your purchase beyond his unspoken gratitude and a thoughtful computer generated thank you email.', 'warning')
-  return render_template('home.html', 
-                          title='Home', 
-                          products=products.items, 
-                          next_url=next_url, 
-                          prev_url=prev_url, 
+  flash('DISCLAIMER: Anything purchased on this website is purchased for Tyler Timms.You will receive nothing for your purchase beyond his unspoken gratitude and a thoughtful computer generated thank you email.', 'warning')
+  return render_template('home.html',
+                          title='Home',
+                          products=products.items,
+                          next_url=next_url,
+                          prev_url=prev_url,
                           stripe_public_key=key)
 
 @storeApp.route('/login', methods=['GET', 'POST'])

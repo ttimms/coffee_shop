@@ -15,5 +15,5 @@ class Config(object):
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS')
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    PRODUCTS_PER_PAGE = 6
-    ADMIN_PRODUCTS_PER_PAGE = 4
+    PRODUCTS_PER_PAGE = int(os.environ.get('PRODUCTS_PER_PAGE'))
+    ADMIN_PRODUCTS_PER_PAGE = int(os.environ.get('ADMIN_PRODUCTS_PER_PAGE'))

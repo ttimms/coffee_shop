@@ -11,15 +11,15 @@
 
       <h1 class="my-4">Coffee Shop</h1>
       <div class="list-group">
-        <a href="{{ url_for('index') }}/coffee" class="list-group-item">Beverages</a>
-        <a href="{{ url_for('index') }}/food" class="list-group-item">Food</a>
-        <a href="{{ url_for('index') }}/treats" class="list-group-item">Treats</a>
+        <a href="{{ url_for('index') }}/coffee" class="list-group-item list-group-item-action">Beverages</a>
+        <a href="{{ url_for('index') }}/food" class="list-group-item list-group-item-action">Food</a>
+        <a href="{{ url_for('index') }}/treat" class="list-group-item list-group-item-action">Treats</a>
       </div>
     </div>
 
     <div class="col-lg-9">
 
-      <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+      <div id="carouselExampleIndicators" class="carousel slide my-4 shadow" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -50,7 +50,7 @@
 
         {% for product in products %}
           <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 shadow">
               <a href="#"><img class="card-img-top" src="../static/img/products/{{product.image_path}}" alt="{{ product.name }}"></a>
               <div class="card-body">
                 <h4 class="card-title">
