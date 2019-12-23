@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/shop_homepage.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container vertical-center shadow" id="about">
+        <div class="text-center">
+            <h1 id="about-heading">About Ty's Coffee Shop</h1>
+            <p>
+                This coffee shop is created for the sole purpose of providing Tyler with a continuous supply of coffee and snacks. 
+                <br/>
+                Just kidding. 
+                <br/>
+                Mostly this serves as a portfolio piece and proof of concept for an eCommerce site, but also with the hope that someone might actually purchase me a coffee. 
+                <br/>
+                This site is built primarily using Python, Flask, Bootstrap, and Stripe for processing payments.
+            </p>
+            <p>
+                <a href="{{ url_for('index') }}" class="btn btn-lg btn-secondary" id="store-button">Back To Store</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

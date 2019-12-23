@@ -17,12 +17,12 @@ def index(cat='coffee'):
   next_url = url_for('index', page=products.next_num) if products.has_next else None
   prev_url = url_for('index', page=products.prev_num) if products.has_prev else None
   key = storeApp.config['STRIPE_PUBLISHABLE_KEY']
-  flash('DISCLAIMER: Anything purchased on this website is purchased for Tyler Timms.You will receive nothing for your purchase beyond his unspoken gratitude and a thoughtful computer generated thank you email.', 'warning')
-  return render_template('home.html',
-                          title='Home',
-                          products=products.items,
-                          next_url=next_url,
-                          prev_url=prev_url,
+  flash(' DISCLAIMER: Anything purchased on this website is purchased for Tyler Timms. You will receive nothing for your purchase beyond his unspoken gratitude and a thoughtful computer generated thank you email.', 'warning')
+  return render_template('home.html', 
+                          title='Home', 
+                          products=products.items, 
+                          next_url=next_url, 
+                          prev_url=prev_url, 
                           stripe_public_key=key)
 
 @storeApp.route('/login', methods=['GET', 'POST'])
@@ -68,7 +68,7 @@ def admin():
     db.session.commit()
     flash('Item: ' + newProduct.name + ' successfully added to store.', 'success')
     return redirect(url_for('admin'))
-  return render_template('admin.html', products=products.items, form=form, next_url=next_url, prev_url=prev_url)
+  return render_template('admin.html', title='Admin', products=products.items, form=form, next_url=next_url, prev_url=prev_url)
 
 @storeApp.route('/delete_product', methods=['GET', 'POST'])
 @login_required
@@ -101,3 +101,8 @@ def process_payment(id):
   send_receipt(customer.email, product)
   flash('Purchase made successfully! Thank you very much! A receipt will be sent to the provided email.', 'success')
   return redirect(url_for('index'))
+
+@storeApp.route('/about')
+def about():
+  return render_template('about.html', title='About')
+  

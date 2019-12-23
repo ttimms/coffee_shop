@@ -11,3 +11,40 @@ a:hover {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.0rem;  /* footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  height: 2.0rem;
+  width: 100%;
+}
+
+#about {
+  padding: 25px;
+  background-color: white;
+}
+
+#about-heading {
+  padding-bottom: 15px;
+}
+
+#store-button {
+  padding-top: 15px;
+}
