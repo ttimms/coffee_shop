@@ -33,7 +33,7 @@
                 <a class="nav-link" href="{{ url_for('about') }}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
               </li>
               {% if current_user.is_authenticated and current_user.role == 'Admin' %}
               <li class="nav-item">
@@ -55,7 +55,7 @@
             <br/>
             {% for category, message in messages %}
               {% if category == 'message' %}
-                <div class="alert alert-danger">
+                <div class="alert alert-danger flashed">
                   <strong>{{ message }}</strong>
                 </div>
               {% else %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/shop_homepage.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container vertical-center shadow contact">
+        <div class="text-center">
+            <h1 id="contact-heading">Message Me!</h1>
+            <form action="" method="POST" class="contact-form" novalidate>
+                <div class="form-group">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <p class="col-6">
+                        {{ form.name.label }}<br>
+                        {{ form.name(class="form-control") }}
+                        {% for error in form.name.errors %}
+                            <span class="alert alert-danger">{{ error }}</span>
+                        {% endfor %}
+                        </p>
+                        <p class="col-6">
+                        {{ form.email.label }}<br>
+                        {{ form.email(class="form-control") }}
+                        {% for error in form.email.errors %}
+                            <span class="alert alert-danger">{{ error }}</span>
+                        {% endfor %}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p class="col-12">
+                            {{ form.message.label }}<br>
+                            {{ form.message(class="form-control") }}
+                            {% for error in form.message.errors %}
+                                <span class="alert alert-danger">{{ error }}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <a>{{ form.submit(class="btn btn-lg btn-secondary store-button") }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

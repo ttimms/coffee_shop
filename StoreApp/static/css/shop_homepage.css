@@ -7,6 +7,12 @@ a:hover {
   text-decoration: none;
 }
 
+.navbar {
+  position: relative;
+  width: 100%;
+  z-index: 1000; /* Set drop navbar in front of content on mobile */
+}
+
 .footer{
   padding-top: 15px;
   padding-bottom: 15px;
@@ -36,15 +42,24 @@ a:hover {
   width: 100%;
 }
 
-#about {
+.about {
+  padding: 25px;
+  background-color: white;
+}
+
+.contact {
   padding: 25px;
   background-color: white;
 }
 
 #about-heading {
-  padding-bottom: 15px;
+  margin: 15px;
 }
 
-#store-button {
-  padding-top: 15px;
+.store-button {
+  margin: 15px;
+}
+
+.flashed {
+  position: absolute;
 }

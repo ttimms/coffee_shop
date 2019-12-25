@@ -12,3 +12,8 @@ def send_sale_notification():
   msg = Message(subject=email , sender=("Coffee Shop", mail.MAIL_USERNAME), recipients=["ty.timms16@gmail.com"])
   msg.body = name + ": " + text_body
   mail.send(msg)
+
+def send_message(email, name, message):
+  msg = Message(subject='Coffee Shop Message', sender=("Coffee Shop", mail.MAIL_USERNAME), recipients=['ty.timms16@gmail.com'])
+  msg.body = name + ': ' + message + '\n\n Reply to: ' + email
+  mail.send(msg)

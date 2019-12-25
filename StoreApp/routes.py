@@ -1,10 +1,10 @@
 from StoreApp import storeApp, db
 from flask import render_template, flash, redirect, url_for, request
-from StoreApp.forms import LoginForm, NewProductForm
+from StoreApp.forms import LoginForm, NewProductForm, ContactForm
 from StoreApp.models import User, Product
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
-from StoreApp.email import send_receipt
+from StoreApp.email import send_receipt, send_message
 import os
 import stripe
 
@@ -106,3 +106,14 @@ def process_payment(id):
 def about():
   return render_template('about.html', title='About')
   
+@storeApp.route('/contact', methods=['GET', 'POST'])
+def contact():
+  form = ContactForm()
+  if request.method == 'POST':
+    Name = form.name.data
+    Email = form.email.data
+    Message = form.message.data
+    flash('Thank you for getting in touch! I\'ll respond to your message as soon as I am able!', 'success')
+    send_message(Email, Name, Message)
+    return redirect(url_for('index'))
+  return render_template('contact.html', title='Contact', form=form)
