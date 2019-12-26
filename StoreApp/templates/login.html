@@ -1,32 +1,35 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="static/css/admin.css"/>
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="../static/css/shop_homepage.css"/>
 {% endblock %}
 
 {% block body %}
-<h3>Login</h3>
-<form action="" method="POST" class="login-form" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-      {{ form.username.label }}<br>
-      {{ form.username(size=32) }}
-      {% for error in form.username.errors %}
-        <span class="alert alert-danger">{{ error }}</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.password.label }}<br>
-      {{ form.password(size=32) }}
-      {% for error in form.password.errors %}
-        <span class="alert alert-danger">{{ error }}</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.remember_me.label }}
-      {{ form.remember_me }}
-    </p>
-    <p>{{ form.submit() }}</p>
-</form>
+  <div class="container shadow vertical-center contact">
+    <h3>Login</h3>
+    <form action="" method="POST" class="login-form" novalidate>
+        <div class="form-group">
+          {{ form.hidden_tag() }}
+          <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32, class="form-control") }}
+            {% for error in form.username.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32, class="form-control") }}
+            {% for error in form.password.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.remember_me.label }}
+            {{ form.remember_me }}
+          </p>
+          <p>{{ form.submit(class="btn btn-lg btn-secondary store-button") }}</p>
+        </div>
+    </form>
+  </div>
 {% endblock %}

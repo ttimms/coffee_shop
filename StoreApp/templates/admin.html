@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="static/css/admin.css"/>
+  <link rel="stylesheet" href="../static/css/shop_homepage.css"/>
 {% endblock %}
 
 {% block body %}
@@ -36,44 +35,50 @@
     {% endif %}
   </p>
   <hr/>
-  <h3>Add New Product</h3>
-  <form action="" method="POST" class="login-form" enctype="multipart/form-data">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.category.label }}<br/>
-        {{ form.category }}
-        {% for error in form.category.errors %}
-          <span class="alert alert-danger">{{ error }}</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.name.label }}<br/>
-        {{ form.name(size=64)}}
-        {% for error in form.name.errors %}
-          <span class="alert alert-danger">{{ error }}</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.price.label }}<br/>
-        {{ form.price }}
-        {% for error in form.price.errors %}
-          <span class="alert alert-danger">{{ error }}</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.description.label }}
-        {{ form.description(size=128)}}
-        {% for error in form.description.errors %}
-          <span class="alert alert-danger">{{ error }}</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.image.label }}<br/>
-        {{ form.image }}
-        {% for error in form.image.errors %}
-          <span class="alert alert-danger">{{ error }}</span>
-        {% endfor %}
-      </p>
-      <p>{{ form.submit() }}</p>
-  </form>
+  <div class="container vertical-center shadow contact">
+    <h3>Add New Product</h3>
+    <div action="" method="POST" class="login-form" enctype="multipart/form-data">
+        <div class="form-group"></div>
+          {{ form.hidden_tag() }}
+          <p>
+            {{ form.category.label }}<br/>
+            {{ form.category(class="form-control") }}
+            {% for error in form.category.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.name.label }}<br/>
+            {{ form.name(class="form-control")}}
+            {% for error in form.name.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.price.label }}<br/>
+            {{ form.price(class="form-control") }}
+            {% for error in form.price.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.description.label }}
+            {{ form.description(class="form-control")}}
+            {% for error in form.description.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.image.label }}<br/>
+            {{ form.image }}
+            {% for error in form.image.errors %}
+              <span class="alert alert-danger">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>{{ form.submit(class="btn btn-lg btn-secondary store-button") }}</p>
+        </div>
+    </form>
+  </div>
+
+
 {% endblock %}
