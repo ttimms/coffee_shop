@@ -10,7 +10,7 @@ def send_receipt(email, product):
 
 def send_sale_notification(email, product, price):
   msg = Message(subject='Coffee Shop Purchase', sender=("Coffee Shop", mail.MAIL_USERNAME), recipients=["ty.timms16@gmail.com"])
-  msg.body = email + " has purchased : " + product + ' for ' + price
+  msg.body = email + " has purchased : " + product.name + ' for ' + price
   mail.send(msg)
 
 def send_message(email, name, message):
